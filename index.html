@@ -5,22 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Révisions d'Anglais</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="main">
-        <h1>Révisions d'Anglais</h1>
-        <div id="subjectList">
-            <h2>Sélectionnez un sujet :</h2>
-            <ul id="subjects"></ul>
-        </div>
-        <div id="quizSection" style="display:none;">
-            <h2>Complétez les phrases</h2>
-            <p id="instruction"></p>
-            <p id="question"></p>
-            <input type="text" id="answer" placeholder="Votre réponse">
-            <button id="submitAnswer">Soumettre</button>
-            <p id="feedback"></p>
-        </div>
+    <div id="subjectList">
+        <h1>Choisissez un sujet</h1>
+        <ul id="subjects"></ul>
+    </div>
+
+    <div id="lessonList" style="display: none;">
+        <h1>Choisissez une leçon</h1>
+        <button id="backToSubjects">Retour aux sujets</button>
+        <ul id="lessons"></ul>
+    </div>
+
+    <div id="quizSection" style="display: none;">
+        <h1>Exercice</h1>
+        <div id="instruction"></div>
+        <div id="question"></div>
+        <input type="text" id="answer" placeholder="Entrez votre réponse ici" />
+        <div id="feedback"></div>
+        <button id="submitAnswer">Soumettre</button>
     </div>
 
     <script src="script.js"></script>

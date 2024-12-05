@@ -1,85 +1,191 @@
-/* Règles globales pour la taille de police et l'alignement */
+/* Importation globale de la police */
 * {
-    font-size: 16px; /* Taille minimale des textes */
+    font-size: 16px;
     line-height: 1.5;
     box-sizing: border-box;
     text-align: center; /* Centrer tous les textes */
-}
-
-/* Styles spécifiques pour le corps */
-body {
-    font-family: Arial, sans-serif; /* Police principale */
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    text-align: center; /* Centrer tout le contenu par défaut */
+    font-family: 'Roboto', sans-serif; /* Police moderne et douce */
 }
 
 /* Styles pour les titres */
 h1, h2, h3 {
     font-size: 18px;
-    text-align: center; /* Assure que les titres sont centrés */
+    font-weight: 700; /* Style en gras */
+    color: #333; /* Couleur neutre */
 }
 
-/* Styles spécifiques aux éléments textuels */
-#instruction, #question, #feedback {
-    margin-top: 10px;
-    font-size: 16px;
-    text-align: center;
-}
-
-/* Styles pour les listes de sujets */
-#subjects {
+/* Styles pour les listes de sujets et de leçons */
+#subjects, #lessons {
     list-style-type: none;
     padding: 0;
-    margin: 0 auto; /* Centrer la liste */
-    width: 50%; /* Largeur ajustable pour la liste */
+    margin: 0 auto;
+    width: 50%;
 }
 
-#subjects li {
+#subjects li, #lessons li {
     padding: 10px;
-    margin: 5px auto; /* Centrer chaque élément */
+    margin: 5px auto;
     background-color: #f2f2f2;
     border: 1px solid #ddd;
     cursor: pointer;
-    text-align: center; /* Centrer les textes des sujets */
+    font-weight: 400; /* Police normale */
 }
 
-#subjects li:hover {
+#subjects li:hover, #lessons li:hover {
     background-color: #ddd;
+}
+
+/* Bouton de retour */
+#backToSubjects {
+    background-color: #007BFF;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    font-weight: 500; /* Semi-gras pour un bon contraste */
+}
+
+#backToSubjects:hover {
+    background-color: #0056b3;
 }
 
 /* Styles pour la section du quiz */
 #quizSection {
-    padding: 20px;
-    margin: 0 auto;
+    background-color: #fefefe;
     border: 1px solid #ccc;
-    background-color: #fff;
-    max-width: 600px; /* Largeur maximale pour la section du quiz */
-    text-align: center; /* Centrer tout le contenu de cette section */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
 }
 
-/* Styles pour les champs de texte */
-input[type="text"] {
-    padding: 8px;
-    margin-top: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    text-align: center; /* Centrer le texte entré par l'utilisateur */
+/* Titres dans la section du quiz */
+#quizSection h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: 700;
 }
 
-/* Styles pour les boutons */
-button {
+/* Section instruction */
+#instruction {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Section question */
+#question {
+    font-size: 18px;
+    color: #444;
+    margin: 15px 0;
     padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Champ de réponse */
+#answer {
+    font-size: 16px;
+    padding: 10px;
+    width: calc(100% - 40px);
+    max-width: 400px;
+    margin: 15px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif; /* Police cohérente */
+}
+
+/* Feedback utilisateur */
+#feedback {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+#feedback.green {
+    color: green;
+}
+
+#feedback.red {
+    color: red;
+}
+
+#feedback.blue {
+    color: blue;
+}
+
+/* Bouton de soumission */
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
     background-color: #4CAF50;
     color: white;
     border: none;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-    text-align: center; /* Centrer le texte dans le bouton */
+    font-weight: 500;
 }
 
 button:hover {
     background-color: #45a049;
+}
+
+/* Bouton spécifique pour soumettre une réponse */
+#submitAnswer {
+    background-color: #ff9800;
+    transition: background-color 0.3s ease;
+}
+
+#submitAnswer:hover {
+    background-color: #e68900;
+}
+
+/* Style pour l'exercice actif */
+#quizSection.active {
+    border-color: #4CAF50;
+    background-color: #e8f5e9;
+}
+
+/* Style pour une question correcte ou incorrecte */
+.correct {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.incorrect {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+/* Accessibilité mobile */
+@media (max-width: 600px) {
+    #quizSection {
+        padding: 15px;
+        width: 100%;
+    }
+
+    #instruction, #question, #feedback {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    #answer {
+        font-size: 14px;
+        padding: 8px;
+    }
 }
