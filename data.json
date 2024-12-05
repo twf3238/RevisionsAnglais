@@ -1,0 +1,117 @@
+{
+    "subjects": [
+      {
+        "name": "Les pronoms personnels",
+        "exercises": [
+            {
+              "exerciseName": "PP_Base",
+              "instruction": "Traduisez les pronoms personnels.",
+              "questions": [
+                  {"sentence": "je",                  "answer": "I"},
+                  {"sentence": "tu",                  "answer": "you"},
+                  {"sentence": "il",                  "answer": "he"},
+                  {"sentence": "elle",                "answer": "she"},
+                  {"sentence": "il/elle (neutre)",    "answer": "it"},
+                  {"sentence": "nous",                "answer": "we"},
+                  {"sentence": "vous",                "answer": "you"},
+                  {"sentence": "ils",                 "answer": "they"},
+                  {"sentence": "elles",               "answer": "they"},
+                  {"sentence": "ils/elles (neutres)", "answer": "they"}
+              ]
+            },
+            {
+              "exerciseName": "PP_Phrases",
+              "instruction": "Trouvez les pronoms personnels correspondant aux phrases.",
+              "questions": [
+                  {"sentence": "___ am happy.",                                       "answer": "I"},
+                  {"sentence": "___ are a pretty girl.",                              "answer": "you"},
+                  {"sentence": "___ is a young boy.",                                 "answer": "he"},
+                  {"sentence": "___ wears a skirt.",                                  "answer": "she"},
+                  {"sentence": "Emily broke her phone. ___ doesn't work anymore",     "answer": "it"},
+                  {"sentence": "___ will, ___ will rock you.",                        "answer": "we"},
+                  {"sentence": "John and Emily are famous. ___ are rich.",            "answer": "they"},
+                  {"sentence": "John is my room-mate. ___ live together.",            "answer": "we"}
+              ]
+            }
+        ]
+      }
+      {
+        "name": "être au présent",
+        "exercises": [
+            {
+              "exerciseName": "etreavoirpresent_Base",
+              "instruction": "Traduisez les verbes conjugés (avec le pronom).",
+              "questions": [
+                  {"sentence": "Je suis",      "answer": "I am"},
+                  {"sentence": "Tu es",        "answer": "You are"},
+                  {"sentence": "Il est",       "answer": "He is"},
+                  {"sentence": "Nous sommes",  "answer": "We are"},
+                  {"sentence": "Vous êtes",    "answer": "You are"},
+                  {"sentence": "Elles sont",   "answer": "They are"}
+              ]
+            },
+            {
+              "exerciseName": "etreavoirpresent_Phrases",
+              "instruction": "Complétez les phrases avec le verbe être au présent.",
+              "questions": [
+                  {"sentence": "I ___ happy.",                         "answer": "am"},
+                  {"sentence": "You ___ a pretty girl.",               "answer": "are"},
+                  {"sentence": "He ___ a young boy.",                  "answer": "is"},
+                  {"sentence": "___ your brother in my class?",        "answer": "is"},
+                  {"sentence": "Your hearphones ___ expensive",        "answer": "are"},
+                  {"sentence": "We ___ at the beach.",                 "answer": "are"},
+                  {"sentence": "John and Emily ___ rich and famous.",  "answer": "are"},
+                  {"sentence": "Anna and I ___ best friends.",         "answer": "are"}
+              ]
+            }
+        ]
+      }
+      {
+        "name": "aliments sains",
+        "exercises": [
+          {
+            "exerciseName": "vocabulaire_fruits",
+            "instruction": "Fruits & légumes.",
+            "questions": [
+              {"sentence": "fruits",            "answer": "fruits"},
+              {"sentence": "légumes",           "answer": "vegetables"},
+              {"sentence": "jus d'orange",      "answer": "orange juice"},
+              {"sentence": "raisins",           "answer": "grapes"},
+              {"sentence": "fraises",           "answer": "strawberries"},
+              {"sentence": "poires",            "answer": "pears"},
+              {"sentence": "maïs",              "answer": "corn"},
+              {"sentence": "haricots",          "answer": "beans"},
+              {"sentence": "haricots verts",    "answer": "green beans"},
+              {"sentence": "pomme",   "answer": "apple"},
+              {"sentence": "carottes",          "answer": "carrots"}
+            ]
+          },
+          {
+            "exerciseName": "vocabulaire_grains",
+            "instruction": "Produits à base de grains.",
+            "questions": [
+                {"sentence": "pain",                          "answer": "bread"},
+                {"sentence": "riz",                           "answer": "rice"},
+                {"sentence": "céréales (du petit déjeuner)",  "answer": "cereal"},
+                {"sentence": "gateaux",                       "answer": "cookies"}
+            ]
+          }
+          {
+            "exerciseName": "vocabulaire_proteines",
+            "instruction": "Produits protéinés.",
+            "questions": [
+                {"sentence": "boeuf",      "answer": "beef"},
+                {"sentence": "jambon",        "answer": "ham"},
+                {"sentence": "oeufs",       "answer": "eggs"},
+                {"sentence": "thon",       "answer": "tuna"},
+                {"sentence": "beurre de cacahouète",       "answer": "peanut butter"},
+                {"sentence": "fromage",       "answer": "cheese"},
+                {"sentence": "lait",       "answer": "milk"},
+                {"sentence": "beurre",       "answer": "butter"},
+                {"sentence": "poulet",  "answer": "chicken"}
+            ]
+          }
+        ]
+      }
+    ]
+  }

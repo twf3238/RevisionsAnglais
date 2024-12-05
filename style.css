@@ -1,0 +1,85 @@
+/* Règles globales pour la taille de police et l'alignement */
+* {
+    font-size: 16px; /* Taille minimale des textes */
+    line-height: 1.5;
+    box-sizing: border-box;
+    text-align: center; /* Centrer tous les textes */
+}
+
+/* Styles spécifiques pour le corps */
+body {
+    font-family: Arial, sans-serif; /* Police principale */
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    text-align: center; /* Centrer tout le contenu par défaut */
+}
+
+/* Styles pour les titres */
+h1, h2, h3 {
+    font-size: 18px;
+    text-align: center; /* Assure que les titres sont centrés */
+}
+
+/* Styles spécifiques aux éléments textuels */
+#instruction, #question, #feedback {
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Styles pour les listes de sujets */
+#subjects {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto; /* Centrer la liste */
+    width: 50%; /* Largeur ajustable pour la liste */
+}
+
+#subjects li {
+    padding: 10px;
+    margin: 5px auto; /* Centrer chaque élément */
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    text-align: center; /* Centrer les textes des sujets */
+}
+
+#subjects li:hover {
+    background-color: #ddd;
+}
+
+/* Styles pour la section du quiz */
+#quizSection {
+    padding: 20px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    max-width: 600px; /* Largeur maximale pour la section du quiz */
+    text-align: center; /* Centrer tout le contenu de cette section */
+}
+
+/* Styles pour les champs de texte */
+input[type="text"] {
+    padding: 8px;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center; /* Centrer le texte entré par l'utilisateur */
+}
+
+/* Styles pour les boutons */
+button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    text-align: center; /* Centrer le texte dans le bouton */
+}
+
+button:hover {
+    background-color: #45a049;
+}

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des révisions</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            color: #34495e;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: #f4f4f4;
+        }
+
+        ul li input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        ul li button {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        ul li button:hover {
+            background: #c0392b;
+        }
+
+        .add-item {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .add-item input[type="text"] {
+            width: 80%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .add-item button {
+            width: 18%;
+            padding: 8px;
+            font-size: 16px;
+            background: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-item button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestion des révisions</h1>
+    <div class="container">
+        <!-- Liste des sujets -->
+        <div class="section" id="subjects-section">
+            <h2>Liste des sujets</h2>
+            <ul id="subjects-list">
+                <!-- Les sujets seront générés dynamiquement ici -->
+            </ul>
+            <div class="add-item">
+                <input type="text" id="new-subject" placeholder="Ajouter un nouveau sujet">
+                <button onclick="addSubject()">Ajouter</button>
+            </div>
+        </div>
+
+        <!-- Section des exercices et questions -->
+        <div class="section" id="details-section" style="display: none;">
+            <h2 id="current-subject-title"></h2>
+            <div id="exercises-container">
+                <!-- Les exercices seront affichés ici -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let jsonData = {
+            "sujets": [
+                {
+                    "nom": "Vocabulaire",
+                    "actif": true,
+                    "exercices": [
+                        {
+                            "instruction": "Complétez les phrases avec le mot correct.",
+                            "questions": [
+                                { "texte": "I ___ to the store yesterday.", "reponse": "went", "actif": true },
+                                { "texte": "She ___ very happy today.", "reponse": "is", "actif": true }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Initialisation de la page
+        document.addEventListener("DOMContentLoaded", () => {
+            renderSubjects();
+        });
+
+        // Afficher les sujets
+        function renderSubjects() {
+            const subjectsList = document.getElementById('subjects-list');
+            subjectsList.innerHTML = '';
+
+            jsonData.sujets.forEach((subject, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div>
+                        <input type="checkbox" ${subject.actif ? 'checked' : ''} 
+                            onchange="toggleSubject(${index})"> 
+                        ${subject.nom}
+                    </div>
+                    <button onclick="deleteSubject(${index})">Supprimer</button>
+                `;
+                li.onclick = () => showDetails(index);
+                subjectsList.appendChild(li);
+            });
+        }
+
+        // Ajouter un sujet
+        function addSubject() {
+            const newSubjectInput = document.getElementById('new-subject');
+            const subjectName = newSubjectInput.value.trim();
+            if (subjectName) {
+                jsonData.sujets.push({ nom: subjectName, actif: true, exercices: [] });
+                renderSubjects();
+                newSubjectInput.value = '';
+            }
+        }
+
+        // Supprimer un sujet
+        function deleteSubject(index) {
+            jsonData.sujets.splice(index, 1);
+            renderSubjects();
+        }
+
+        // Activer/Désactiver un sujet
+        function toggleSubject(index) {
+            jsonData.sujets[index].actif = !jsonData.sujets[index].actif;
+        }
+
+        // Afficher les détails d'un sujet
+        function showDetails(index) {
+            const detailsSection = document.getElementById('details-section');
+            const subjectTitle = document.getElementById('current-subject-title');
+            const exercisesContainer = document.getElementById('exercises-container');
+
+            const subject = jsonData.sujets[index];
+            subjectTitle.innerText = `Détails pour : ${subject.nom}`;
+            detailsSection.style.display = 'block';
+
+            exercisesContainer.innerHTML = '';
+            subject.exercices.forEach((exercise, exerciseIndex) => {
+                const div = document.createElement('div');
+                div.className = 'section';
+                div.innerHTML = `
+                    <h3>${exercise.instruction}</h3>
+                    <ul>
+                        ${exercise.questions.map((q, questionIndex) => `
+                            <li>
+                                <input type="checkbox" ${q.actif ? 'checked' : ''} 
+                                    onchange="toggleQuestion(${index}, ${exerciseIndex}, ${questionIndex})"> 
+                                ${q.texte}
+                                <button onclick="deleteQuestion(${index}, ${exerciseIndex}, ${questionIndex})">Supprimer</button>
+                            </li>
+                        `).join('')}
+                    </ul>
+                    <div class="add-item">
+                        <input type="text" id="new-question-${exerciseIndex}" placeholder="Ajouter une question">
+                        <button onclick="addQuestion(${index}, ${exerciseIndex})">Ajouter</button>
+                    </div>
+                `;
+                exercisesContainer.appendChild(div);
+            });
+        }
+
+        // Ajouter une question
+        function addQuestion(subjectIndex, exerciseIndex) {
+            const input = document.getElementById(`new-question-${exerciseIndex}`);
+            const questionText = input.value.trim();
+            if (questionText) {
+                jsonData.sujets[subjectIndex].exercices[exerciseIndex].questions.push({
+                    texte: questionText,
+                    reponse: "",
+                    actif: true
+                });
+                showDetails(subjectIndex);
+                input.value = '';
+            }
+        }
+
+        // Supprimer une question
+        function deleteQuestion(subjectIndex, exerciseIndex, questionIndex) {
+            jsonData.sujets[subjectIndex].exercices[exerciseIndex].questions.splice(questionIndex, 1);
+            showDetails(subjectIndex);
+        }
+
+        // Activer/Désactiver une question
+        function toggleQuestion(subjectIndex, exerciseIndex, questionIndex) {
+            const question = jsonData.sujets[subjectIndex].exercices[exerciseIndex].questions[questionIndex];
+            question.actif = !question.actif;
+        }
+    </script>
+</body>
+</html>
