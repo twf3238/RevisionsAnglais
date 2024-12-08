@@ -1,158 +1,126 @@
-document.addEventListener('DOMContentLoaded', () => {
-    let subjectsData = {};
-    let currentSubject = null;
-    let currentLessonIndex = 0;
-    let currentExerciseIndex = 0;
-    let currentQuestionIndex = 0;
-    let errorCount = 0; // Nombre d'erreurs
+// script.js
 
-    // Charger les sujets depuis le fichier JSON
-    fetch('data.json')
-        .then(response => response.json())
-        .then(data => {
-            subjectsData = data;
-            loadSubjects();
-        });
+document.addEventListener('DOMContentLoaded', async () => {
+    const revisionSection = document.querySelector('#revision-section');
+    const manageSection = document.querySelector('#manage-section');
+    const revisionButton = document.querySelector('#revision-btn');
+    const manageButton = document.querySelector('#manage-btn');
 
-    // Charger la liste des sujets dans l'interface
-    function loadSubjects() {
-        const subjectsList = document.getElementById('subjects');
-        subjectsList.innerHTML = '';
-        subjectsData.subjects.forEach((subject, index) => {
-            const li = document.createElement('li');
-            li.textContent = subject.name;
-            li.addEventListener('click', () => startSubject(index));
-            subjectsList.appendChild(li);
-        });
-    }
+    // Initialize the application with the "Gérer les Exercices" section
+    manageSection.style.display = 'block';
+    revisionSection.style.display = 'none';
 
-    // Mélanger les questions d'un exercice
-    function shuffleQuestions(questions) {
-        for (let i = questions.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [questions[i], questions[j]] = [questions[j], questions[i]]; // Échange des questions
-        }
-    }
-
-    // Mélanger les exercices dans chaque leçon
-    function shuffleExercises(lesson) {
-        lesson.exercises.forEach(exercise => {
-            shuffleQuestions(exercise.questions);
-        });
-    }
-
-    // Commencer un sujet
-    function startSubject(index) {
-        currentSubject = subjectsData.subjects[index];
-        currentLessonIndex = 0;
-        currentExerciseIndex = 0;
-        currentQuestionIndex = 0;
-        errorCount = 0; // Réinitialiser le nombre d'erreurs
-        loadLessons();
-    }
-
-    // Charger les leçons d'un sujet
-    function loadLessons() {
-        const lessonsList = document.getElementById('lessons');
-        lessonsList.innerHTML = '';
-        currentSubject.lessons.forEach((lesson, index) => {
-            const li = document.createElement('li');
-            li.textContent = lesson.lessonName;
-            li.addEventListener('click', () => startLesson(index));
-            lessonsList.appendChild(li);
-        });
-        document.getElementById('subjectList').style.display = 'none';
-        document.getElementById('lessonList').style.display = 'block';
-        document.getElementById('backToSubjects').addEventListener('click', () => {
-            document.getElementById('lessonList').style.display = 'none';
-            document.getElementById('subjectList').style.display = 'block';
-        });
-    }
-
-    // Commencer une leçon
-    function startLesson(index) {
-        const lesson = currentSubject.lessons[index];
-        console.log(`Démarrage de la leçon : ${lesson.lessonName}`);
-        shuffleExercises(lesson); // Mélanger les exercices de la leçon
-        currentLessonIndex = index; // Enregistrer l'index de la leçon
-        currentExerciseIndex = 0; // Réinitialiser l'index de l'exercice
-        currentQuestionIndex = 0; // Réinitialiser l'index de la question
-    
-        // Afficher uniquement la section des exercices
-        document.getElementById('subjectList').style.display = 'none';
-        document.getElementById('lessonList').style.display = 'none';
-        document.getElementById('quizSection').style.display = 'block';
-    
-        loadExercise(); // Charger le premier exercice
-    }
-
-    // Afficher un exercice
-    function loadExercise() {
-        const lesson = currentSubject.lessons[currentLessonIndex];
-        const exercise = lesson.exercises[currentExerciseIndex];
-        document.getElementById('instruction').textContent = exercise.instruction;
-        showQuestion();
-    }
-
-    // Afficher la question actuelle
-    function showQuestion() {
-        const lesson = currentSubject.lessons[currentLessonIndex];
-        const exercise = lesson.exercises[currentExerciseIndex];
-        const question = exercise.questions[currentQuestionIndex];
-        document.getElementById('question').textContent = question.sentence;
-        document.getElementById('answer').value = '';
-        document.getElementById('feedback').textContent = '';
-    }
-
-    // Valider la réponse avec le bouton ou la touche Entrée
-    function submitAnswer() {
-        const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
-        const correctAnswer = currentSubject.lessons[currentLessonIndex].exercises[currentExerciseIndex].questions[currentQuestionIndex].answer.toLowerCase();
-        const feedback = document.getElementById('feedback');
-
-        if (userAnswer === correctAnswer) {
-            feedback.textContent = "Bravo ! Réponse correcte.";
-            feedback.style.color = "green";
-            errorCount = 0; // Réinitialiser le compteur d'erreurs
-            currentQuestionIndex++;
-            if (currentQuestionIndex < currentSubject.lessons[currentLessonIndex].exercises[currentExerciseIndex].questions.length) {
-                showQuestion();
-            } else {
-                currentExerciseIndex++;
-                currentQuestionIndex = 0;
-                if (currentExerciseIndex < currentSubject.lessons[currentLessonIndex].exercises.length) {
-                    loadExercise();
-                } else {
-                    feedback.textContent = "Vous avez terminé cette leçon !";
-                    feedback.style.color = "green";
-                    setTimeout(endExercise, 2000); // Revenir à la liste des leçons après 2 secondes
-                }
-            }
-        } else {
-            errorCount++;
-            if (errorCount < 2) {
-                feedback.textContent = "Mauvaise réponse. Essayez encore.";
-                feedback.style.color = "red";
-            } else {
-                feedback.textContent = `La bonne réponse est : ${correctAnswer}.`;
-                feedback.style.color = "blue";
-            }
-        }
-    }
-    
-    function endExercise() {
-        console.log("Fin de l'exercice");
-        document.getElementById('quizSection').style.display = 'none';
-        document.getElementById('lessonList').style.display = 'block';
-    }
-
-    // Écouter la touche Entrée pour soumettre la réponse
-    document.getElementById('answer').addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            submitAnswer();
-        }
+    // Event Listeners for menu buttons
+    revisionButton.addEventListener('click', () => {
+        manageSection.style.display = 'none';
+        revisionSection.style.display = 'block';
     });
 
-    // Écouter le clic sur le bouton pour soumettre la réponse
-    document.getElementById('submitAnswer').addEventListener('click', submitAnswer);
+    manageButton.addEventListener('click', () => {
+        revisionSection.style.display = 'none';
+        manageSection.style.display = 'block';
+    });
+
+    // Fetch and display data from Airtable
+    try {
+        const exercices = await fetchExercices();
+        displayExercices(exercices);
+    } catch (error) {
+        console.error('Erreur lors du chargement des données :', error);
+    }
 });
+
+// Fetch data from Netlify function
+const fetchExercices = async () => {
+    try {
+        const response = await fetch('/.netlify/functions/fetchAirtable');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erreur lors de la récupération des exercices :', error);
+        throw error;
+    }
+};
+
+// Display exercices in cards grouped by lesson
+const displayExercices = (exercices) => {
+    const manageContainer = document.querySelector('#manage-container');
+    const revisionContainer = document.querySelector('#revision-container');
+
+    const lessons = groupByLesson(exercices);
+
+    manageContainer.innerHTML = '';
+    revisionContainer.innerHTML = '';
+
+    for (const [lessonName, exercices] of Object.entries(lessons)) {
+        const lessonCard = createLessonCard(lessonName, exercices);
+        manageContainer.appendChild(lessonCard.cloneNode(true)); // Clone for "Manage" section
+        revisionContainer.appendChild(lessonCard); // Original for "Revision" section
+    }
+};
+
+// Group exercices by lesson
+const groupByLesson = (exercices) => {
+    return exercices.reduce((grouped, exercise) => {
+        const lessonName = exercise.fields.Lesson || 'Sans Titre';
+        if (!grouped[lessonName]) {
+            grouped[lessonName] = [];
+        }
+        grouped[lessonName].push(exercise);
+        return grouped;
+    }, {});
+};
+
+// Create a lesson card with collapsible exercices
+const createLessonCard = (lessonName, exercices) => {
+    const lessonCard = document.createElement('div');
+    lessonCard.className = 'lesson-card';
+
+    const header = document.createElement('div');
+    header.className = 'lesson-header';
+
+    const toggleButton = document.createElement('button');
+    toggleButton.className = 'toggle-btn';
+    toggleButton.textContent = '>';
+    toggleButton.addEventListener('click', () => {
+        toggleButton.classList.toggle('expanded');
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    });
+
+    const lessonTitle = document.createElement('h3');
+    lessonTitle.textContent = lessonName;
+
+    header.appendChild(toggleButton);
+    header.appendChild(lessonTitle);
+    lessonCard.appendChild(header);
+
+    const content = document.createElement('div');
+    content.className = 'lesson-content';
+    content.style.display = 'none'; // Collapsed by default
+
+    exercices.forEach((exercise) => {
+        const exerciseCard = document.createElement('div');
+        exerciseCard.className = 'exercise-card';
+
+        const title = document.createElement('strong');
+        title.textContent = `${exercise.fields.ID}. ${exercise.fields.Title}`;
+
+        const meta = document.createElement('p');
+        meta.innerHTML = `${exercise.fields.Competence} - ${exercise.fields.Theme}<br><em>${exercise.fields.Lesson}</em>`;
+
+        const date = document.createElement('small');
+        date.innerHTML = `<em>Modifié le : ${new Date(exercise.fields.Modified).toLocaleDateString()}</em>`;
+
+        exerciseCard.appendChild(title);
+        exerciseCard.appendChild(meta);
+        exerciseCard.appendChild(date);
+
+        content.appendChild(exerciseCard);
+    });
+
+    lessonCard.appendChild(content);
+    return lessonCard;
+};
