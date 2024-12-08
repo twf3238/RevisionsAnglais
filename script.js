@@ -124,3 +124,10 @@ const createLessonCard = (lessonName, exercices) => {
     lessonCard.appendChild(content);
     return lessonCard;
 };
+
+async function fetchExercises() {
+    const response = await fetch('/.netlify/functions/fetchAirtable');
+    const data = await response.json();
+    console.log("Données reçues :", data); // Vérifiez que les données sont correctes
+    return data;
+}
