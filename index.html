@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,21 +7,29 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header>
+        <h1>Révision Langues</h1>
+    </header>
+
+    <!-- Sections -->
     <main>
-        <section id="exercice-section">
-            <div id="exercices-container"></div>
+        <section id="manageSection">
+            <h2>Gérer les Exercices</h2>
+            <div id="lessons-container"></div>
+        </section>
+
+        <section id="reviewSection" style="display: none;">
+            <h2>Commencer une Révision</h2>
+            <div id="review-container"></div>
         </section>
     </main>
+
+    <!-- Footer with navigation -->
     <footer>
-        <button id="manage-btn" class="menu-btn">
-            <span>+</span>
-            <p>Gérer les Exercices</p>
-        </button>
-        <button id="revision-btn" class="menu-btn">
-            <span>✔</span>
-            <p>Commencer une Révision</p>
-        </button>
+        <button id="manageBtn" class="nav-btn active">➕</button>
+        <button id="reviewBtn" class="nav-btn">✔️</button>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
